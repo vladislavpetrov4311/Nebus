@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
-use Firebase\JWT\JWT;
-use Firebase\JWT\ExpiredException;
-use Firebase\JWT\Key;
+use App\Service\CompanyService;
 
 class CompanyRestController extends Controller {
 
-    public function __invoke(CompanyRequest $request) {
+    public function __invoke(CompanyRequest $request, CompanyService $service) {
 
-        $token = $request->bearerToken();
-    
-        $key = 'Nebus'; // ! в Postman не нужно шифровать ключ !, потому что он шифрует некорректно, поэтому проверям открыто
+        $token = $request->bearerToken(); // Получение токена Админа
 
-        dd($decoded = JWT::decode($token, new Key($key, 'HS256'))); 
+        return $service->CheckPasswordFromJwtToken($token) // Проверка пароля
+        ? response()->json(["Response" => "Accepted password"], 200)
+        : response()->json(["Response" => "Invalid password Or Token"], 401);
     }
 
 }
