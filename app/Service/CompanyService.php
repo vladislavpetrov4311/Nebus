@@ -34,11 +34,11 @@ class CompanyService {
     public function GetAllCompanyInHouse($request) {
 
         if($this->CheckPasswordFromJwtToken($request->bearerToken())) {
+
             $House = House::where('addres' , $request->validated()['addres'])->first();
-            $Companies = Company::where('house_id' , $House->id)->get();
-            
-            return CompanyResource::collection($Companies);
+
+            return CompanyResource::collection($House->company);
         }
-        
+
     }
 }
