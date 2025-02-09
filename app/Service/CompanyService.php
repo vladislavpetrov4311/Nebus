@@ -6,6 +6,9 @@ use App\Models\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\Key;
+use App\Http\Requests\CompanyRequest;
+use App\Models\Company;
+use App\Models\House;
 
 class CompanyService {
 
@@ -25,5 +28,18 @@ class CompanyService {
 
             return false;
         }
+    }
+
+    public function GetAllCompanyInHouse($request) {
+
+        if($this->CheckPasswordFromJwtToken($request->bearerToken())) {
+            $House = House::where('addres' , $request->validated()['addres'])->first();
+            $Companies = Company::where('house_id' , $House->id)->get();
+
+            foreach($Companies as $company) {
+                dump($company->name);
+            }
+        }
+        
     }
 }

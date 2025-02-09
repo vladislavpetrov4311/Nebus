@@ -22,7 +22,7 @@ class CompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-           //'key_token' => 'string'
+           'addres' => 'string'
         ];
     }
 }
