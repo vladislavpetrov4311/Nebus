@@ -10,6 +10,7 @@ use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\House;
 use App\Http\Resources\CompanyResource;
+use Exception;
 
 class CompanyService {
 
@@ -32,13 +33,24 @@ class CompanyService {
     }
 
     public function GetAllCompanyInHouse($request) {
+        try {
 
-        if($this->CheckPasswordFromJwtToken($request->bearerToken())) {
+            if($this->CheckPasswordFromJwtToken($request->bearerToken())) {
 
-            $House = House::where('addres' , $request->validated()['addres'])->first();
+                $House = House::where('addres' , $request->validated()['addres'])->first();
 
-            return CompanyResource::collection($House->company);
+                if(!$House) {
+                    throw new Exception("Invalid addres House");
+                }
+
+                return CompanyResource::collection($House->company);
+
+            } else {
+                throw new Exception("Invalid token");
+                }
+        } catch(Exception $e) {
+            
+            return response()->json(['Response' => $e->getMessage()], 401);
         }
-
     }
 }
