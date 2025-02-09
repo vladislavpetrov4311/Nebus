@@ -9,6 +9,7 @@ use Firebase\JWT\Key;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\House;
+use App\Http\Resources\CompanyResource;
 
 class CompanyService {
 
@@ -35,10 +36,8 @@ class CompanyService {
         if($this->CheckPasswordFromJwtToken($request->bearerToken())) {
             $House = House::where('addres' , $request->validated()['addres'])->first();
             $Companies = Company::where('house_id' , $House->id)->get();
-
-            foreach($Companies as $company) {
-                dump($company->name);
-            }
+            
+            return CompanyResource::collection($Companies);
         }
         
     }

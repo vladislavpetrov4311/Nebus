@@ -5,4 +5,4 @@ use App\Http\Controllers\CompanyRestController;
 use App\Http\Controllers\GetCompanyController;
 
 Route::get('Company' , CompanyRestController::class);
-Route::get('AllCompany' , GetCompanyController::class);
+Route::post('AllCompany' , GetCompanyController::class);
