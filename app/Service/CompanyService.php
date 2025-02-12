@@ -14,6 +14,9 @@ use Exception;
 
 class CompanyService {
 
+    /** 
+     * @Метод проверки токена
+     */
     public function CheckPasswordFromJwtToken($token) {
 
         $Admin = User::where('name' , 'Admin')->first();
@@ -32,6 +35,9 @@ class CompanyService {
         }
     }
 
+    /**
+     * @Метод получения списка компаний в конкретном здании
+     */
     public function GetAllCompanyInHouse($request) {
         try {
 
