@@ -8,4 +8,8 @@
 ```
 composer require firebase/php-jwt
 ```
+Запуск теста получения токена
+```
+./vendor/bin/phpunit --testsuite Feature tests\Feature\CheckGetJwtTokenTest.php
+```
 
