@@ -14,7 +14,22 @@ use Exception;
 
 class CompanyService {
 
-    /** 
+    /**
+     * @Метод получения токена
+     */
+    public function GetJwtToken()
+    {
+        $Admin = User::where('name' , 'Admin')->first();
+        $payload = [
+            'id' => $Admin->id,
+            'name' => $Admin->name,
+            'password' => $Admin->password
+        ];
+        $key = 'Nebus';
+        $Jwt = JWT::encode($payload , $key , 'HS256');
+    }
+
+    /**
      * @Метод проверки токена
      */
     public function CheckPasswordFromJwtToken($token) {
@@ -24,8 +39,8 @@ class CompanyService {
         if($Admin->remember_token == $token) {
 
         $key = 'Nebus'; // ! в Postman не нужно шифровать ключ !, потому что он шифрует некорректно, поэтому проверям открыто
-        
-        $decoded = JWT::decode($token, new Key($key, 'HS256')); 
+
+        $decoded = JWT::decode($token, new Key($key, 'HS256'));
 
         return $Admin->password == $decoded->password ? true : false;
 
@@ -55,7 +70,7 @@ class CompanyService {
                 throw new Exception("Invalid token");
                 }
         } catch(Exception $e) {
-            
+
             return response()->json(['Response' => $e->getMessage()], 401);
         }
     }
