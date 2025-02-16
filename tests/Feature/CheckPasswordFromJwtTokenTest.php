@@ -14,7 +14,7 @@ class CheckPasswordFromJwtTokenTest extends TestCase
     public function test_example(): void
     {
         $response = $this->get('Company' , [
-            'Authorization' => 'Bearer ' . 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJuYW1lIjoiQWRtaW4iLCJwYXNzd29yZCI6IiQyeSQxMiRZZldodFBzOEwxS09QVWxiUTk4ZHFleVNaN1hxMXhJRGxrMXk0a09tb2VkcDFYcVVxM3h4MiJ9.Ap9mYBZ_i1uJcJQk4bQ_Ug5W9ZE8Pn2-tT0kz0zbuD8'
+            'Authorization' => 'Bearer ' . 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMnkkMTIkWWZXaHRQczhMMUtPUFVsYlE5OGRxZXlTWjdYcTF4SURsazF5NGtPbW9lZHAxWHFVcTN4eDIifQ.A_-vlCzyCWg3OPjPMhGZmAWqJHhF8hM4aqyhmnlpmtI'
         ]);
 
         $response->assertStatus(200);

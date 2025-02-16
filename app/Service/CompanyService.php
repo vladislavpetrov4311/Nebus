@@ -27,6 +27,8 @@ class CompanyService {
         ];
         $key = 'Nebus';
         $Jwt = JWT::encode($payload , $key , 'HS256');
+
+        return empty(!$Jwt) ? true : false;
     }
 
     /**
